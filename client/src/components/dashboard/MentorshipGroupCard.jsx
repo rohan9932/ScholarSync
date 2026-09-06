@@ -10,12 +10,25 @@ export default function MentorshipGroupCard({ student }) {
       <div>
         <div className="flex items-center justify-between">
           <h4 className="text-white font-bold text-sm tracking-tight">{student.studentName}</h4>
-          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-accent-500/10 text-accent-400 border border-accent-500/20">
-            Mentee
-          </span>
+          <div className="flex items-center gap-1.5">
+            {student.matchScore != null && (
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-accent-500/15 text-accent-400 border border-accent-500/30">
+                {Math.round(student.matchScore)}% Fit
+              </span>
+            )}
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-accent-500/10 text-accent-400 border border-accent-500/20">
+              Mentee
+            </span>
+          </div>
         </div>
 
-        <div className="space-y-1 mt-2 text-xs text-secondary">
+        {student.pitchText && (
+          <p className="text-xs text-secondary/80 italic line-clamp-2 mt-2 bg-surface-alt/60 p-2 rounded-lg border border-white/[0.04]">
+            "{student.pitchText}"
+          </p>
+        )}
+
+        <div className="space-y-1 mt-2.5 text-xs text-secondary">
           <p className="flex items-center gap-1.5">
             <Mail className="w-3.5 h-3.5 text-muted shrink-0" />
             <span className="truncate">{student.studentEmail}</span>

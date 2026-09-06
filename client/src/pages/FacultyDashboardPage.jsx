@@ -89,8 +89,8 @@ export default function FacultyDashboardPage() {
   const handleDecide = async (applicationId, status) => {
     try {
       await decideApplication(applicationId, status);
-      // Reload applications and mentorship board
-      reloadData(effectiveFacultyId);
+      // Immediately reload applications and mentorship board
+      await reloadData(effectiveFacultyId);
     } catch (err) {
       console.error('Failed to decide application:', err);
     }
@@ -215,7 +215,7 @@ export default function FacultyDashboardPage() {
           }`}
         >
           <Award className="w-3.5 h-3.5" />
-          <span>Mentorship Board</span>
+          <span>Mentorship Board ({applications.filter((a) => a.status === 'ACCEPTED').length})</span>
         </button>
 
         <button
