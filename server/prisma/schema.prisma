@@ -21,6 +21,7 @@ model Faculty {
   tasks             Task[]
   applications      Application[]
   bookings          Booking[]
+  user              User?
 
   @@map("faculties")
 }
@@ -117,4 +118,23 @@ enum BookingStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(STUDENT)
+  facultyId    String?  @unique
+  faculty      Faculty? @relation(fields: [facultyId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+enum Role {
+  TEACHER
+  STUDENT
 }
