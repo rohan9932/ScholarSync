@@ -130,6 +130,7 @@ async function main() {
 
   let totalSlotsInserted = 0;
   let matchedFacultyCount = 0;
+  const allSlotRecords: any[] = [];
 
   for (const s of schedulesData) {
     const facultyId = facultyNameMap.get(s.faculty_name.trim());
@@ -192,46 +193,61 @@ async function main() {
     }
 
     if (slotRecords.length > 0) {
-      await prisma.scheduleSlot.createMany({
-        data: slotRecords,
-      });
-      totalSlotsInserted += slotRecords.length;
+      allSlotRecords.push(...slotRecords);
     }
+  }
+
+  // Insert in batches of 200
+  for (let i = 0; i < allSlotRecords.length; i += 200) {
+    const batch = allSlotRecords.slice(i, i + 200);
+    await prisma.scheduleSlot.createMany({ data: batch });
+    totalSlotsInserted += batch.length;
   }
 
   console.log(`✅ Seeded ${totalSlotsInserted} schedule slots across ${matchedFacultyCount} faculty.`);
   console.log(`ℹ️ ${facultiesData.length - matchedFacultyCount} faculty have no schedule data (expected).`);
 
-  // 3. Optional Embedding Backfill (Contract with Agent 3)
-  console.log('⏳ Checking faculty research interest embeddings...');
-  let embeddingAttempted = false;
+  // 3. Embedding Backfill (Phase 3 lands)
+  console.log('⏳ Checking faculty research interest vector embeddings...');
+  const existingEmbeddings = await prisma.$queryRawUnsafe<{ id: string; hasEmbedding: boolean }[]>(
+    'SELECT id, (embedding IS NOT NULL) as "hasEmbedding" FROM faculties'
+  );
+  const embeddedMap = new Map(existingEmbeddings.map((r) => [r.id, r.hasEmbedding]));
+
+  let updatedCount = 0;
+  let alreadyEmbeddedCount = 0;
+  let totalWithInterests = 0;
 
   for (const f of facultiesData) {
     if (f.research_interests && f.research_interests.length > 0) {
+      totalWithInterests++;
+      if (embeddedMap.get(f.id)) {
+        alreadyEmbeddedCount++;
+        continue;
+      }
       const joinedText = f.research_interests.join(', ');
       try {
         const embedding = await getEmbedding(joinedText);
-        if (embedding && embedding.length > 0) {
-          embeddingAttempted = true;
+        if (embedding && embedding.length === 768) {
           const vectorStr = `[${embedding.join(',')}]`;
           await prisma.$executeRawUnsafe(
             `UPDATE faculties SET embedding = $1::vector WHERE id = $2`,
             vectorStr,
             f.id
           );
+          updatedCount++;
+          if (updatedCount % 10 === 0) {
+            console.log(`  ↪ Embedded ${updatedCount} new faculty research profiles...`);
+          }
         }
-      } catch (err) {
-        // Expected until Agent 3 implements getEmbedding
-        break;
+      } catch (err: any) {
+        console.warn(`  ⚠️ Failed to generate embedding for faculty ${f.id} (${f.name}):`, err.message);
       }
     }
   }
 
-  if (!embeddingAttempted) {
-    console.warn('⚠️ Embeddings not yet available from Agent 3 — run `npm run db:seed` again after Phase 3 lands.');
-  } else {
-    console.log('✅ Faculty embeddings updated successfully.');
-  }
+  console.log(`✅ Faculty embeddings verified: ${alreadyEmbeddedCount + updatedCount}/${totalWithInterests} faculty embedded (${alreadyEmbeddedCount} existing, ${updatedCount} newly created).`);
+  console.log(`ℹ️ ${facultiesData.length - totalWithInterests} faculty have no research interests (embeddings left NULL as per contract).`);
 
   console.log('🎉 Seed completed successfully!');
 }
