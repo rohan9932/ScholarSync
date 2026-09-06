@@ -12,7 +12,7 @@
     "db:seed": "prisma db seed"
   },
   "prisma": {
-    "seed": "node --loader ts-node/esm prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
@@ -28,6 +28,7 @@
     "nodemon": "^3.1.9",
     "prisma": "^5.22.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.23.13",
     "typescript": "^5.7.2"
   }
 }
