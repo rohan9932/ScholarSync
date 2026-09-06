@@ -1,0 +1,120 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
+}
+
+model Faculty {
+  id                String        @id            // use faculty.json's own "fac-001" style IDs directly — do NOT @default(cuid())
+  name              String
+  designation       String        // academic rank, e.g. "Professor" / "Assistant Professor" — faculty.json has no department field
+  email             String        @unique
+  profileUrl        String?
+  researchInterests String[]      // raw array from faculty.json, kept for display/tagging
+  embedding         Unsupported("vector(768)")?  // NULL when researchInterests is empty (10 of 64 faculty) — see Phase 3.2
+  scheduleSlots     ScheduleSlot[]
+  tasks             Task[]
+  applications      Application[]
+  bookings          Booking[]
+
+  @@map("faculties")
+}
+
+model ScheduleSlot {
+  id         String   @id @default(cuid())
+  facultyId  String
+  faculty    Faculty  @relation(fields: [facultyId], references: [id])
+  day        DayOfWeek // only SUN–THU occur in the source data; treat FRI/SAT as always-free/no-class
+  startTime  String   // "HH:mm" 24hr, converted from source's 12-hour "hh:mm AM/PM" strings
+  endTime    String
+  type       SlotType // BUSY or FREE
+  source     String?  // e.g. "seed" | "task" | "booking", for provenance/debugging
+
+  @@map("schedule_slots")
+}
+
+enum DayOfWeek {
+  SUN
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+}
+
+enum SlotType {
+  BUSY
+  FREE
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  facultyId   String
+  faculty     Faculty    @relation(fields: [facultyId], references: [id])
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  status      TaskStatus @default(PENDING)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("tasks")
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+model Application {
+  id             String            @id @default(cuid())
+  facultyId      String
+  faculty        Faculty           @relation(fields: [facultyId], references: [id])
+  studentName    String
+  studentEmail   String
+  studentContact String?           // for MESSENGER/WHATSAPP link, PRD §3.2
+  pitchText      String
+  embedding      Unsupported("vector(768)")?
+  matchScore     Float?            // 0–100
+  matchSummary   String?           // 1–2 sentence AI summary
+  status         ApplicationStatus @default(PENDING)
+  createdAt      DateTime          @default(now())
+
+  @@map("applications")
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+  facultyId     String
+  faculty       Faculty       @relation(fields: [facultyId], references: [id])
+  studentName   String
+  studentEmail  String
+  slotStart     DateTime
+  slotEnd       DateTime
+  isCustom      Boolean       @default(false) // true if no matching free_slot existed
+  status        BookingStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
