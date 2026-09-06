@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext.jsx';
 import { useApp } from '../context/AppContext.jsx';
 import ApplicantList from '../components/dashboard/ApplicantList.jsx';
 import MentorshipBoard from '../components/dashboard/MentorshipBoard.jsx';
@@ -14,12 +15,27 @@ import {
   getTasks,
   updateTask,
   deleteTask,
-  createTask
+  createTask,
 } from '../services/api.js';
-import { Users, Calendar, Award, Plus, Sparkles } from 'lucide-react';
+import {
+  Users,
+  Calendar,
+  BookOpen,
+  Plus,
+  Sparkles,
+  Award,
+  CheckCircle,
+  Clock,
+  Briefcase
+} from 'lucide-react';
 
 export default function FacultyDashboardPage() {
-  const { selectedFacultyId, setSelectedFacultyId } = useApp();
+  const { user } = useAuth();
+  const { selectedFacultyId, setSelectedFacultyId, currentDate } = useApp();
+
+  // If user is a teacher linked to a faculty, use their facultyId
+  const effectiveFacultyId = user?.facultyId || selectedFacultyId || 'fac-001';
+
   const [facultyList, setFacultyList] = useState([]);
   const [facultyProfile, setFacultyProfile] = useState(null);
   const [applications, setApplications] = useState([]);
@@ -27,217 +43,307 @@ export default function FacultyDashboardPage() {
   const [scheduleSlots, setScheduleSlots] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [activeTab, setActiveTab] = useState('applicants'); // 'applicants' | 'mentorship' | 'schedule'
+
+  // Task creation state
   const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [newTaskStart, setNewTaskStart] = useState('14:00');
+  const [newTaskEnd, setNewTaskEnd] = useState('15:00');
+  const [isCreatingTask, setIsCreatingTask] = useState(false);
 
-  useEffect(() => {
-    // Load faculty list
-    getFacultyList()
-      .then((data) => {
-        if (data && data.length > 0) {
-          setFacultyList(data);
-          if (!selectedFacultyId) setSelectedFacultyId(data[0].id);
-        } else {
-          // Fallback initial mocked list for Phase 0 UI preview
-          const mock = [
-            { id: 'fac-001', name: 'Dr. Mohammad Shafiul Alam', designation: 'Professor' },
-            { id: 'fac-002', name: 'Dr. Kazi A Kalpoma', designation: 'Professor' },
-          ];
-          setFacultyList(mock);
-        }
-      })
-      .catch(() => {
-        setFacultyList([
-          { id: 'fac-001', name: 'Dr. Mohammad Shafiul Alam', designation: 'Professor' },
-        ]);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (!selectedFacultyId) return;
-
-    getFaculty(selectedFacultyId).then(setFacultyProfile).catch(() => {});
-    getApplications(selectedFacultyId).then(setApplications).catch(() => {});
-    getMentorships(selectedFacultyId).then(setMentorships).catch(() => {});
-    getFacultySchedule(selectedFacultyId).then((res) => setScheduleSlots(res?.slots || [])).catch(() => {});
-    getTasks(selectedFacultyId).then(setTasks).catch(() => {});
-  }, [selectedFacultyId]);
-
-  const handleDecide = async (id, status) => {
+  const reloadData = async (fId) => {
+    if (!fId) return;
     try {
-      await decideApplication(id, status);
-      setApplications((prev) =>
-        prev.map((a) => (a.id === id ? { ...a, status } : a))
-      );
-      if (status === 'ACCEPTED') {
-        getMentorships(selectedFacultyId).then(setMentorships);
-      }
+      const [prof, apps, ments, sched, tlist] = await Promise.allSettled([
+        getFaculty(fId),
+        getApplications(fId),
+        getMentorships(fId),
+        getFacultySchedule(fId),
+        getTasks(fId),
+      ]);
+
+      if (prof.status === 'fulfilled') setFacultyProfile(prof.value);
+      if (apps.status === 'fulfilled') setApplications(apps.value || []);
+      if (ments.status === 'fulfilled') setMentorships(ments.value || []);
+      if (sched.status === 'fulfilled') setScheduleSlots(sched.value?.slots || []);
+      if (tlist.status === 'fulfilled') setTasks(tlist.value || []);
     } catch (err) {
-      console.error(err);
+      console.warn('Error fetching faculty data:', err);
     }
   };
 
-  const handleTaskStatus = async (taskId, newStatus) => {
+  useEffect(() => {
+    getFacultyList()
+      .then((list) => {
+        setFacultyList(list);
+        if (effectiveFacultyId) {
+          setSelectedFacultyId(effectiveFacultyId);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    reloadData(effectiveFacultyId);
+  }, [effectiveFacultyId]);
+
+  const handleDecide = async (applicationId, status) => {
+    try {
+      await decideApplication(applicationId, status);
+      // Reload applications and mentorship board
+      reloadData(effectiveFacultyId);
+    } catch (err) {
+      console.error('Failed to decide application:', err);
+    }
+  };
+
+  const handleStatusChange = async (taskId, newStatus) => {
     try {
       await updateTask(taskId, { status: newStatus });
-      setTasks((prev) => prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t)));
+      reloadData(effectiveFacultyId);
     } catch (err) {
-      console.error(err);
+      console.error('Failed to update task:', err);
     }
   };
 
   const handleDeleteTask = async (taskId) => {
     try {
       await deleteTask(taskId);
-      setTasks((prev) => prev.filter((t) => t.id !== taskId));
+      reloadData(effectiveFacultyId);
     } catch (err) {
-      console.error(err);
+      console.error('Failed to delete task:', err);
     }
   };
 
   const handleCreateTask = async (e) => {
     e.preventDefault();
     if (!newTaskTitle.trim()) return;
+
     try {
-      const created = await createTask({
-        facultyId: selectedFacultyId,
-        title: newTaskTitle,
-        startTime: new Date().toISOString(),
-        endTime: new Date(Date.now() + 3600000).toISOString(),
-        status: 'PENDING'
+      setIsCreatingTask(true);
+      const isoStart = `${currentDate}T${newTaskStart}:00.000Z`;
+      const isoEnd = `${currentDate}T${newTaskEnd}:00.000Z`;
+
+      await createTask({
+        facultyId: effectiveFacultyId,
+        title: newTaskTitle.trim(),
+        startTime: isoStart,
+        endTime: isoEnd,
       });
-      setTasks((prev) => [...prev, created]);
+
       setNewTaskTitle('');
+      reloadData(effectiveFacultyId);
     } catch (err) {
-      console.error(err);
+      console.error('Failed to create task:', err);
+    } finally {
+      setIsCreatingTask(false);
     }
   };
 
   return (
-    <div className="space-y-6">
-      {/* Top Banner & Faculty Switcher */}
-      <div className="bg-slate-800/40 border border-slate-700/70 rounded-3xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-teal-400 text-xs font-semibold uppercase tracking-wider mb-1">
-            <Sparkles className="w-4 h-4" />
-            Faculty Workspace
-          </div>
-          <h1 className="text-2xl font-bold text-white">
-            {facultyProfile?.name || 'Faculty Portal'}
-          </h1>
-          <p className="text-sm text-slate-400 mt-0.5">
-            {facultyProfile?.designation || 'Academic Staff'} &bull; {facultyProfile?.email || 'scholarsync@aust.edu'}
-          </p>
-        </div>
+    <div className="space-y-8 max-w-6xl mx-auto">
+      {/* Top Banner / Header */}
+      <div className="bg-surface border border-white/[0.06] rounded-card p-6 sm:p-8 backdrop-blur-xl relative overflow-hidden shadow-sm">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-accent-500/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="flex items-center gap-3">
-          <label className="text-xs text-slate-400 whitespace-nowrap">Active Faculty:</label>
-          <select
-            value={selectedFacultyId}
-            onChange={(e) => setSelectedFacultyId(e.target.value)}
-            className="bg-slate-900 border border-slate-700 text-sm text-white rounded-xl px-3 py-2 focus:outline-none focus:border-teal-500"
-          >
-            {facultyList.map((f) => (
-              <option key={f.id} value={f.id}>
-                {f.name} ({f.designation})
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <span className="text-xs font-bold text-accent-400 uppercase tracking-widest block mb-1">
+              Faculty Research & Supervision Portal
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              {facultyProfile ? facultyProfile.name : 'Faculty Dashboard'}
+            </h1>
+            <p className="text-xs text-secondary mt-1 max-w-xl">
+              {facultyProfile?.designation} &bull; Manage student research proposals, supervise accepted mentees, and coordinate schedule availability.
+            </p>
+
+            {/* Research interests tags */}
+            {facultyProfile?.researchInterests && facultyProfile.researchInterests.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-3">
+                {facultyProfile.researchInterests.map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-surface-alt border border-white/[0.06] text-accent-300"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Quick Stat Chips (per design system Section 5) */}
+          <div className="flex sm:flex-col gap-2.5 shrink-0">
+            <div className="bg-surface-alt border border-white/[0.06] px-4 py-2.5 rounded-xl text-center min-w-[120px]">
+              <div className="text-lg font-extrabold text-white">{applications.length}</div>
+              <div className="text-[10px] uppercase font-bold text-muted tracking-wider">
+                Proposals
+              </div>
+            </div>
+            <div className="bg-surface-alt border border-white/[0.06] px-4 py-2.5 rounded-xl text-center min-w-[120px]">
+              <div className="text-lg font-extrabold text-accent-400">
+                {applications.filter((a) => a.status === 'ACCEPTED').length}
+              </div>
+              <div className="text-[10px] uppercase font-bold text-muted tracking-wider">
+                Mentees
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+      {/* Tab Switcher Pills */}
+      <div className="flex items-center gap-2 p-1.5 bg-surface border border-white/[0.06] rounded-xl max-w-md">
         <button
           onClick={() => setActiveTab('applicants')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition ${
+          className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
             activeTab === 'applicants'
-              ? 'bg-teal-600 text-white shadow-md'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              ? 'bg-accent-600 text-white shadow-md shadow-accent-600/20'
+              : 'text-secondary hover:text-white'
           }`}
         >
-          <Award className="w-4 h-4" />
-          <span>Applicants & AI Matches</span>
-          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-900/50">
-            {applications.length}
-          </span>
+          <Users className="w-3.5 h-3.5" />
+          <span>Applicants ({applications.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('mentorship')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition ${
+          className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
             activeTab === 'mentorship'
-              ? 'bg-teal-600 text-white shadow-md'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              ? 'bg-accent-600 text-white shadow-md shadow-accent-600/20'
+              : 'text-secondary hover:text-white'
           }`}
         >
-          <Users className="w-4 h-4" />
+          <Award className="w-3.5 h-3.5" />
           <span>Mentorship Board</span>
         </button>
 
         <button
           onClick={() => setActiveTab('schedule')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition ${
+          className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
             activeTab === 'schedule'
-              ? 'bg-teal-600 text-white shadow-md'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+              ? 'bg-accent-600 text-white shadow-md shadow-accent-600/20'
+              : 'text-secondary hover:text-white'
           }`}
         >
-          <Calendar className="w-4 h-4" />
-          <span>Timetable & Tasks</span>
+          <Calendar className="w-3.5 h-3.5" />
+          <span>Schedule & Tasks</span>
         </button>
       </div>
 
-      {/* Tab Panels */}
-      {activeTab === 'applicants' && (
-        <ApplicantList applications={applications} onDecide={handleDecide} />
-      )}
+      {/* Main Tab Content */}
+      <div className="space-y-6">
+        {activeTab === 'applicants' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[11px] font-bold text-accent-400 uppercase tracking-widest block">
+                  Proposal Evaluation
+                </span>
+                <h2 className="text-xl font-bold text-white tracking-tight">
+                  Student Research Applicants
+                </h2>
+              </div>
+              <span className="text-xs text-muted">
+                Sorted by AI Semantic Match Score
+              </span>
+            </div>
 
-      {activeTab === 'mentorship' && (
-        <MentorshipBoard mentorshipGroups={mentorships} />
-      )}
+            <ApplicantList applications={applications} onDecide={handleDecide} />
+          </div>
+        )}
 
-      {activeTab === 'schedule' && (
-        <div className="space-y-6">
-          <ScheduleView slots={scheduleSlots} tasks={tasks} />
+        {activeTab === 'mentorship' && (
+          <div className="space-y-4">
+            <div>
+              <span className="text-[11px] font-bold text-accent-400 uppercase tracking-widest block">
+                Accepted Research Groups
+              </span>
+              <h2 className="text-xl font-bold text-white tracking-tight">
+                Mentorship Supervision Board
+              </h2>
+            </div>
 
-          {/* Quick Task Creation & Task List */}
-          <div className="bg-slate-800/40 border border-slate-700/70 rounded-2xl p-5 space-y-4">
-            <h3 className="font-semibold text-white text-base">Allocated Tasks & Review Deadlines</h3>
+            <MentorshipBoard mentorshipGroups={mentorships} />
+          </div>
+        )}
 
-            <form onSubmit={handleCreateTask} className="flex gap-2">
-              <input
-                type="text"
-                value={newTaskTitle}
-                onChange={(e) => setNewTaskTitle(e.target.value)}
-                placeholder="Add new task (e.g. Thesis Draft Review)..."
-                className="flex-1 bg-slate-900 border border-slate-700 text-sm text-white rounded-xl px-3.5 py-2 focus:outline-none focus:border-teal-500"
-              />
-              <button
-                type="submit"
-                className="flex items-center gap-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs px-4 py-2 rounded-xl transition"
-              >
-                <Plus className="w-4 h-4" />
-                Add Task
-              </button>
-            </form>
+        {activeTab === 'schedule' && (
+          <div className="space-y-6">
+            <ScheduleView slots={scheduleSlots} tasks={tasks} />
 
-            <div className="space-y-2">
-              {tasks.length === 0 ? (
-                <p className="text-xs text-slate-400 text-center py-4">No pending tasks for this faculty.</p>
-              ) : (
-                tasks.map((task) => (
-                  <TaskItem
-                    key={task.id}
-                    task={task}
-                    onStatusChange={handleTaskStatus}
-                    onDelete={handleDeleteTask}
+            {/* Task Management Panel */}
+            <div className="bg-surface border border-white/[0.06] rounded-card p-5 sm:p-6 space-y-5">
+              <div className="flex items-center justify-between border-b border-white/[0.06] pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-lg bg-surface-alt text-accent-400">
+                    <Briefcase className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-accent-400 uppercase tracking-widest block">
+                      Daily To-Dos
+                    </span>
+                    <h3 className="font-bold text-white text-base">Tasks & Scheduled Blocks</h3>
+                  </div>
+                </div>
+                <span className="text-xs text-muted font-medium">
+                  {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}
+                </span>
+              </div>
+
+              {/* Add Task Form */}
+              <form onSubmit={handleCreateTask} className="flex flex-col sm:flex-row gap-2.5">
+                <input
+                  type="text"
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  placeholder="New task title (e.g. Review thesis papers)..."
+                  className="flex-1 bg-surface-alt border border-white/[0.06] focus:border-accent-500 rounded-xl px-4 py-2.5 text-xs text-white placeholder-muted focus:outline-none"
+                />
+                <div className="flex items-center gap-2">
+                  <input
+                    type="time"
+                    value={newTaskStart}
+                    onChange={(e) => setNewTaskStart(e.target.value)}
+                    className="bg-surface-alt border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none"
                   />
-                ))
-              )}
+                  <span className="text-muted text-xs">-</span>
+                  <input
+                    type="time"
+                    value={newTaskEnd}
+                    onChange={(e) => setNewTaskEnd(e.target.value)}
+                    className="bg-surface-alt border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={isCreatingTask || !newTaskTitle.trim()}
+                  className="bg-accent-600 hover:bg-accent-500 disabled:opacity-50 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Task</span>
+                </button>
+              </form>
+
+              {/* Task List */}
+              <div className="space-y-2.5">
+                {tasks.length === 0 ? (
+                  <p className="text-xs text-muted text-center py-6">No tasks scheduled for today.</p>
+                ) : (
+                  tasks.map((task) => (
+                    <TaskItem
+                      key={task.id}
+                      task={task}
+                      onStatusChange={handleStatusChange}
+                      onDelete={handleDeleteTask}
+                    />
+                  ))
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

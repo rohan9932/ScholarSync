@@ -4,6 +4,25 @@
 
 @layer base {
   body {
-    @apply bg-slate-900 text-slate-100 antialiased min-h-screen font-sans;
+    @apply bg-base text-[#F5F7F5] font-sans antialiased min-h-screen;
+    background-color: #0A0F0C;
+    color: #F5F7F5;
   }
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0F0C;
+}
+::-webkit-scrollbar-thumb {
+  background: #161F1A;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #22C55E;
 }

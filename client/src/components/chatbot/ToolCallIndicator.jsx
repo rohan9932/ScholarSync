@@ -1,11 +1,11 @@
 import React from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 
-export default function ToolCallIndicator({ text = "Checking schedule & availability..." }) {
+export default function ToolCallIndicator({ text = "Checking schedule & timetable..." }) {
   return (
-    <div className="flex items-center gap-2 text-xs text-teal-400 bg-teal-950/40 border border-teal-800/60 px-3 py-1.5 rounded-full w-fit my-2 animate-pulse">
-      <Loader2 className="w-3.5 h-3.5 animate-spin text-teal-400" />
-      <span>{text}</span>
+    <div className="flex items-center gap-2 text-xs text-accent-400 bg-accent-500/10 border border-accent-500/20 px-3.5 py-2 rounded-full w-fit my-2 shadow-sm animate-pulse">
+      <Loader2 className="w-3.5 h-3.5 animate-spin text-accent-400" />
+      <span className="font-semibold">{text}</span>
     </div>
   );
 }

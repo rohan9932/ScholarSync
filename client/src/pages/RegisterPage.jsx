@@ -24,7 +24,8 @@ export default function RegisterPage() {
         const list = await getFacultyList();
         setFacultyList(list);
         if (list.length > 0 && !facultyId) {
-          setFacultyId(list[0].id);
+          const firstAvailable = list.find((f) => !f.user) || list[0];
+          setFacultyId(firstAvailable.id);
         }
       } catch (err) {
         console.warn('Could not load faculty list:', err.message);
@@ -180,8 +181,13 @@ export default function RegisterPage() {
                     className="w-full bg-slate-950 border border-slate-800 focus:border-teal-500 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-teal-500 transition appearance-none cursor-pointer"
                   >
                     {facultyList.map((f) => (
-                      <option key={f.id} value={f.id} className="bg-slate-900 text-white">
-                        {f.name} — {f.designation}
+                      <option
+                        key={f.id}
+                        value={f.id}
+                        disabled={!!f.user}
+                        className={f.user ? 'bg-slate-950 text-slate-500' : 'bg-slate-900 text-white'}
+                      >
+                        {f.name} — {f.designation} {f.user ? ' (Already Claimed)' : ''}
                       </option>
                     ))}
                   </select>

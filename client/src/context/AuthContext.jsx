@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
       localStorage.setItem('scholarsync_token', data.token);
       return data.user;
     } catch (err) {
-      const msg = err.response?.data?.error || 'Login failed. Please check your credentials.';
+      const msg = err.response?.data?.error || err.message || 'Login failed. Please check your credentials.';
       setError(msg);
       throw new Error(msg);
     }
@@ -60,7 +60,7 @@ export function AuthProvider({ children }) {
       localStorage.setItem('scholarsync_token', data.token);
       return data.user;
     } catch (err) {
-      const msg = err.response?.data?.error || 'Registration failed.';
+      const msg = err.response?.data?.error || err.message || 'Registration failed.';
       setError(msg);
       throw new Error(msg);
     }

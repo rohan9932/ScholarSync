@@ -22,6 +22,9 @@ export const facultyController = {
           email: true,
           profileUrl: true,
           researchInterests: true,
+          user: {
+            select: { id: true, email: true },
+          },
         },
         orderBy: { id: 'asc' },
       });

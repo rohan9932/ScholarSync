@@ -12,8 +12,9 @@ export const authController = {
     try {
       const parsed = registerSchema.safeParse(req.body);
       if (!parsed.success) {
+        const firstError = parsed.error.errors[0]?.message || 'Validation failed';
         return res.status(400).json({
-          error: 'Validation failed',
+          error: firstError,
           details: parsed.error.format(),
         });
       }
@@ -97,8 +98,9 @@ export const authController = {
     try {
       const parsed = loginSchema.safeParse(req.body);
       if (!parsed.success) {
+        const firstError = parsed.error.errors[0]?.message || 'Validation failed';
         return res.status(400).json({
-          error: 'Validation failed',
+          error: firstError,
           details: parsed.error.format(),
         });
       }

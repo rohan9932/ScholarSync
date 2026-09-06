@@ -1,12 +1,18 @@
 import React from 'react';
 import MatchScoreCard from './MatchScoreCard.jsx';
-import { Check, X, Mail, Phone } from 'lucide-react';
+import { Check, X, Mail, Phone, Users, Inbox } from 'lucide-react';
 
 export default function ApplicantList({ applications = [], onDecide }) {
   if (!applications || applications.length === 0) {
     return (
-      <div className="p-8 text-center bg-slate-800/30 rounded-2xl border border-slate-700/50">
-        <p className="text-slate-400 text-sm">No student applications received yet.</p>
+      <div className="p-12 text-center bg-surface border border-white/[0.06] rounded-card space-y-3">
+        <div className="w-12 h-12 rounded-2xl bg-surface-alt border border-white/[0.06] flex items-center justify-center mx-auto text-muted">
+          <Inbox className="w-6 h-6" />
+        </div>
+        <h3 className="font-bold text-white text-base">No Applications Received Yet</h3>
+        <p className="text-secondary text-xs max-w-sm mx-auto">
+          Student research proposals submitted for your mentorship will appear here with automated AI fit evaluations.
+        </p>
       </div>
     );
   }
@@ -16,54 +22,70 @@ export default function ApplicantList({ applications = [], onDecide }) {
       {applications.map((app) => (
         <div
           key={app.id}
-          className="bg-slate-800/50 border border-slate-700/70 rounded-2xl p-5 hover:border-slate-600 transition space-y-4"
+          className="bg-surface border border-white/[0.06] hover:border-accent-500/30 rounded-card p-5 transition space-y-4 shadow-sm"
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          {/* Header Row */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h3 className="font-semibold text-white text-base">{app.studentName}</h3>
-              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 mt-1">
-                <span className="flex items-center gap-1">
-                  <Mail className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-2">
+                <h3 className="font-bold text-white text-base tracking-tight">{app.studentName}</h3>
+                <span
+                  className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
+                    app.status === 'ACCEPTED'
+                      ? 'bg-accent-500/15 text-accent-400 border-accent-500/30'
+                      : app.status === 'REJECTED'
+                      ? 'bg-rose-500/15 text-rose-400 border-rose-500/30'
+                      : 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                  }`}
+                >
+                  {app.status}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4 text-xs text-secondary mt-1">
+                <span className="flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 text-muted" />
                   {app.studentEmail}
                 </span>
                 {app.studentContact && (
-                  <span className="flex items-center gap-1">
-                    <Phone className="w-3.5 h-3.5" />
+                  <span className="flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-muted" />
                     {app.studentContact}
                   </span>
                 )}
               </div>
             </div>
 
-            <div className="flex items-center gap-2 self-end sm:self-auto">
-              <span className="text-xs px-2.5 py-1 rounded-full bg-slate-700 text-slate-300">
-                {app.status}
-              </span>
-              {app.status === 'PENDING' && (
-                <>
-                  <button
-                    onClick={() => onDecide?.(app.id, 'ACCEPTED')}
-                    className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg transition"
-                  >
-                    <Check className="w-3.5 h-3.5" />
-                    Accept
-                  </button>
-                  <button
-                    onClick={() => onDecide?.(app.id, 'REJECTED')}
-                    className="flex items-center gap-1 bg-rose-600/80 hover:bg-rose-600 text-white text-xs px-3 py-1.5 rounded-lg transition"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                    Reject
-                  </button>
-                </>
-              )}
-            </div>
+            {/* Actions */}
+            {app.status === 'PENDING' && (
+              <div className="flex items-center gap-2 self-end sm:self-auto">
+                <button
+                  onClick={() => onDecide?.(app.id, 'ACCEPTED')}
+                  className="flex items-center gap-1.5 bg-accent-600 hover:bg-accent-500 text-white font-semibold text-xs px-3.5 py-1.5 rounded-lg transition shadow-md shadow-accent-600/20 active:scale-95 cursor-pointer"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  <span>Accept Pitch</span>
+                </button>
+                <button
+                  onClick={() => onDecide?.(app.id, 'REJECTED')}
+                  className="flex items-center gap-1.5 bg-surface-alt hover:bg-rose-500/20 text-secondary hover:text-rose-300 border border-white/[0.06] hover:border-rose-500/30 text-xs px-3.5 py-1.5 rounded-lg transition active:scale-95 cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  <span>Decline</span>
+                </button>
+              </div>
+            )}
           </div>
 
-          <p className="text-sm text-slate-300 line-clamp-3 bg-slate-900/40 p-3 rounded-xl border border-slate-800/80">
-            {app.pitchText}
-          </p>
+          {/* Student Pitch Text */}
+          <div className="bg-surface-alt/70 border border-white/[0.04] p-3.5 rounded-xl text-sm text-secondary leading-relaxed">
+            <span className="text-[11px] font-bold text-accent-400 uppercase tracking-widest block mb-1">
+              Proposal Pitch
+            </span>
+            "{app.pitchText}"
+          </div>
 
+          {/* AI Match Score Evaluation */}
           <MatchScoreCard score={app.matchScore} summary={app.matchSummary} />
         </div>
       ))}
