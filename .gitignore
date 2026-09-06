@@ -4,8 +4,6 @@ node_modules/
 .pnp.js
 
 # Environment variables
-.env
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local
@@ -25,10 +23,10 @@ lerna-debug.log*
 # Editor and OS files
 .DS_Store
 Thumbs.db
-.vscode/
 .idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+config.bat
