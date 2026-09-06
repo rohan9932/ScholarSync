@@ -5,6 +5,7 @@ import facultyRoutes from './routes/facultyRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import applicationRoutes from './routes/applicationRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 import aiRoutes from './ai/routes.js';
 import { applicationController } from './controllers/applicationController.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -26,6 +27,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Route Mounts
+app.use('/api/auth', authRoutes);
 app.use('/api/faculty', facultyRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/applications', applicationRoutes);

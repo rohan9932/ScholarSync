@@ -7,6 +7,20 @@ const api = axios.create({
   },
 });
 
+// Request interceptor to attach Bearer token
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('scholarsync_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Auth Endpoints
+export const authLogin = (credentials) => api.post('/auth/login', credentials).then(res => res.data);
+export const authRegister = (data) => api.post('/auth/register', data).then(res => res.data);
+export const authMe = () => api.get('/auth/me').then(res => res.data);
+
 // Faculty Endpoints
 export const getFacultyList = () => api.get('/faculty').then(res => res.data);
 export const getFaculty = (id) => api.get(`/faculty/${id}`).then(res => res.data);
