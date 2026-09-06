@@ -1,0 +1,757 @@
+[
+  {
+    "id": "fac-001",
+    "name": "Prof. Dr. S.M.A. Al-Mamun",
+    "designation": "Professor",
+    "email": "almamun@aust.edu",
+    "research_interests": [
+      "Data and Knowledge Engineering"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/prof_dr_s_m_a_al_mamun"
+  },
+  {
+    "id": "fac-002",
+    "name": "Prof. Dr. Kazi A Kalpoma",
+    "designation": "Professor",
+    "email": "kalpoma@aust.edu",
+    "research_interests": [
+      "Satellite Image Processing and its Applications",
+      "Computer Vision",
+      "Image Processing",
+      "Machine Learning",
+      "Cyber Security"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/prof_dr_kazi_a_kalpoma"
+  },
+  {
+    "id": "fac-003",
+    "name": "Prof. Dr. Mohammad Shafiul Alam",
+    "designation": "Professor",
+    "email": "shafiul.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Swarm Intelligence",
+      "Evolutionary Algorithm",
+      "Adaptive System"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/prof_dr_mohammad_shafiul_alam"
+  },
+  {
+    "id": "fac-004",
+    "name": "Prof. Dr. Md. Shahriar Mahbub",
+    "designation": "Professor",
+    "email": "shahriar.cse@aust.edu",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/prof_dr_md_shahriar_mahbub"
+  },
+  {
+    "id": "fac-005",
+    "name": "Prof. Dr. Md. Shamim Akhter",
+    "designation": "Professor",
+    "email": "shamimakhter.cse@aust.edu",
+    "research_interests": [
+      "AI and Machine Intelligence Tools for CSP Domain",
+      "Data Science Strategies for Business Analytics",
+      "IoT and Embedded Solutions for IR4 Constraints",
+      "Parallel or Distributed Computing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/prof_dr_md_shamim_akhter"
+  },
+  {
+    "id": "fac-006",
+    "name": "Mr. Md. Khairul Hasan",
+    "designation": "Associate Professor",
+    "email": "khairul271276@aust.edu",
+    "research_interests": [
+      "Computational Intelligence",
+      "Machine Learning",
+      "Blockchain"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_khairul_hasan"
+  },
+  {
+    "id": "fac-007",
+    "name": "Mr. Md. Moinul Hoque",
+    "designation": "Associate Professor",
+    "email": "moinul@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Question Answering Systems",
+      "Multimodal Intelligence",
+      "Application of Deep Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_moinul_hoque"
+  },
+  {
+    "id": "fac-008",
+    "name": "Mr. Faisal Muhammad Shah",
+    "designation": "Associate Professor",
+    "email": "faisal.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Computer Vision",
+      "Deep Learning",
+      "Natural Language Processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_faisal_muhammad_shah"
+  },
+  {
+    "id": "fac-009",
+    "name": "Mr. Md. Wasi Ul Kabir",
+    "designation": "Assistant Professor",
+    "email": "wasi_cse25@yahoo.com",
+    "research_interests": [
+      "Computer Vision",
+      "Machine Learning",
+      "Evolutionary Computation"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_wasi_ul_kabir"
+  },
+  {
+    "id": "fac-010",
+    "name": "Mr. Md. Hosne Al Walid Shaiket",
+    "designation": "Assistant Professor",
+    "email": "walid.cse@aust.edu",
+    "research_interests": [
+      "Image Processing",
+      "Computer Vision",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_hosne_al_walid_shaiket"
+  },
+  {
+    "id": "fac-011",
+    "name": "Mr. Tanvir Ahmed",
+    "designation": "Assistant Professor",
+    "email": "tanvir.cse@aust.edu",
+    "research_interests": [
+      "Blockchain",
+      "Wireless Communications",
+      "Machine Learning",
+      "Desktop/Web application"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_tanvir_ahmed"
+  },
+  {
+    "id": "fac-012",
+    "name": "Dr. D.M. Anisuzzaman",
+    "designation": "Assistant Professor",
+    "email": "rajon99@gmail.com",
+    "research_interests": [
+      "Deep Learning",
+      "Machine Learning",
+      "Medical image analysis",
+      "Natural language processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/dr_d_m_anisuzzaman"
+  },
+  {
+    "id": "fac-013",
+    "name": "Mr. Emam Hossain",
+    "designation": "Assistant Professor",
+    "email": "emamhossain.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Image Processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_emam_hossain"
+  },
+  {
+    "id": "fac-014",
+    "name": "Ms. Syeda Shabnam Hasan",
+    "designation": "Assistant Professor",
+    "email": "shabnam.cse@aust.edu",
+    "research_interests": [
+      "Data Mining",
+      "Machine Learning",
+      "Meta heuristic Algorithms"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_syeda_shabnam_hasan"
+  },
+  {
+    "id": "fac-015",
+    "name": "Mr. Nazmus Sakib",
+    "designation": "Assistant Professor",
+    "email": "sakib.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Data Mining and Cloud Data",
+      "Bio Informatics and Optimization",
+      "Telecomunication Business"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_nazmus_sakib"
+  },
+  {
+    "id": "fac-016",
+    "name": "Ms. Raqeebir Rab",
+    "designation": "Assistant Professor",
+    "email": "raqeebir.cse@aust.edu",
+    "research_interests": [
+      "Wireless AdHoc and Sensor Networks",
+      "Machine Learning",
+      "Network Security"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_raqeebir_rab"
+  },
+  {
+    "id": "fac-017",
+    "name": "Ms. Afsana Ahmed Munia",
+    "designation": "Assistant Professor",
+    "email": "afsana.cse@aust.edu",
+    "research_interests": [
+      "Data Mining",
+      "E-commerce",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_afsana_ahmed_munia"
+  },
+  {
+    "id": "fac-018",
+    "name": "Mr. Mohammad Imrul Jubair",
+    "designation": "Assistant Professor",
+    "email": "jubair.cse@aust.edu",
+    "research_interests": [
+      "Computer Vision",
+      "Computer Graphics"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_mohammad_imrul_jubair"
+  },
+  {
+    "id": "fac-019",
+    "name": "Mr. Mir Tafseer Nayeem",
+    "designation": "Assistant Professor",
+    "email": "mtnayeem.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Deep Learning",
+      "Computational Social Science"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_mir_tafseer_nayeem"
+  },
+  {
+    "id": "fac-020",
+    "name": "Mr. H M Zabir Haque",
+    "designation": "Assistant Professor",
+    "email": "zabir.haque.cse@aust.edu",
+    "research_interests": [
+      "Bioinformatics and Computational Biology",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_h_m_zabir_haque"
+  },
+  {
+    "id": "fac-021",
+    "name": "Mr. Tanveer Ahmed Belal",
+    "designation": "Assistant Professor",
+    "email": "belal92.cse@gmail.com",
+    "research_interests": [
+      "NLP",
+      "Optimization",
+      "Web and Desktop Software Development",
+      "HCI"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_tanveer_ahmed_belal"
+  },
+  {
+    "id": "fac-022",
+    "name": "Mr. Shoeb Mohammad Shahriar",
+    "designation": "Assistant Professor",
+    "email": "shoeb.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Data Science",
+      "Computer Vision",
+      "Web Application Development"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_shoeb_mohammad_shahriar"
+  },
+  {
+    "id": "fac-023",
+    "name": "Mr. Md. Aminur Rahman",
+    "designation": "Assistant Professor",
+    "email": "aminur.cse@aust.edu",
+    "research_interests": [
+      "Human-Computer Interaction (HCI)",
+      "Web/Mobile Application Development",
+      "Natural Language Processing (NLP)",
+      "ICTD"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_aminur_rahman"
+  },
+  {
+    "id": "fac-024",
+    "name": "Dr. Taslim Taher",
+    "designation": "Assistant Professor",
+    "email": "taslim.cse@aust.edu",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/dr_taslim_taher"
+  },
+  {
+    "id": "fac-025",
+    "name": "Mr. Saha Reno",
+    "designation": "Assistant Professor",
+    "email": "reno.cse@aust.edu",
+    "research_interests": [
+      "Blockchain",
+      "Machine Learning",
+      "Computer Vision"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_saha_reno"
+  },
+  {
+    "id": "fac-026",
+    "name": "Dr. Md. Masudur Rahman",
+    "designation": "Assistant Professor",
+    "email": "masudur.rahman0413.cse@aust.edu",
+    "research_interests": [
+      "Software Engineering",
+      "Software Maintenance",
+      "Code Smells and Refactorings"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/dr_md_masudur_rahman"
+  },
+  {
+    "id": "fac-027",
+    "name": "Ms. Tamanna Tabassum",
+    "designation": "Assistant Professor",
+    "email": "tamanna.cse@aust.edu",
+    "research_interests": [
+      "Blockchain",
+      "Digital Forensics",
+      "Quantum Computing",
+      "DNA Computing",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_tamanna_tabassum"
+  },
+  {
+    "id": "fac-028",
+    "name": "Mr. Md. Siam Ansary",
+    "designation": "Assistant Professor",
+    "email": "siamansary.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Opinion Mining",
+      "Stock Market Analysis"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_siam_ansary"
+  },
+  {
+    "id": "fac-029",
+    "name": "Ms. Lomat Haider Chowdhury",
+    "designation": "Assistant Professor",
+    "email": "lomathaider.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Data Science",
+      "NLP"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_lomat_haider_chowdhury"
+  },
+  {
+    "id": "fac-030",
+    "name": "Ms. Nusrat Jahan",
+    "designation": "Assistant Professor",
+    "email": "nusratjahan.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Cryptography",
+      "Algorithm",
+      "Deep Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_nusrat_jahan"
+  },
+  {
+    "id": "fac-031",
+    "name": "Mr. Md. Taksir Hasan Majumder",
+    "designation": "Lecturer",
+    "email": "Taksir.cse@aust.edu",
+    "research_interests": [
+      "Artificial Neural Network",
+      "Machine Learning",
+      "Program",
+      "Research &"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_taksir_hasan_majumder"
+  },
+  {
+    "id": "fac-032",
+    "name": "Mr. Mir Imtiaz Mostafiz",
+    "designation": "Lecturer",
+    "email": "imtiaznaved@gmail.com",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_mir_imtiaz_mostafiz"
+  },
+  {
+    "id": "fac-033",
+    "name": "Mr. Ahasanuzzaman",
+    "designation": "Lecturer",
+    "email": "ahsan.du.2010@gmail.com",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_ahasanuzzaman"
+  },
+  {
+    "id": "fac-034",
+    "name": "Ms. Anika Sayara",
+    "designation": "Lecturer",
+    "email": "anikasayara@outlook.com",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_anika_sayara"
+  },
+  {
+    "id": "fac-035",
+    "name": "Ms. Tasfia Zahin",
+    "designation": "Lecturer Grade-II",
+    "email": "tasfia.cse@aust.edu",
+    "research_interests": [
+      "Bioinformatics & Computational Biology",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_tasfia_zahin"
+  },
+  {
+    "id": "fac-036",
+    "name": "Mr. Md. Tawkat Islam Khondaker",
+    "designation": "Lecturer Grade-II",
+    "email": "tawkat.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Machine Learning",
+      "Data Mining",
+      "Software Engineering",
+      "Health Informatics",
+      "Social Networks Analysis",
+      "Computational Social Science"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_tawkat_islam_khondaker"
+  },
+  {
+    "id": "fac-037",
+    "name": "Mr. Nibir Chandra Mandal",
+    "designation": "Lecturer Grade-I",
+    "email": "nibir.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Software Security",
+      "Natural Language Processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_nibir_chandra_mandal"
+  },
+  {
+    "id": "fac-038",
+    "name": "Mr. Md. Hasin Abrar",
+    "designation": "Lecturer Grade-II",
+    "email": "hasin.abrar.cse@aust.edu",
+    "research_interests": [
+      "Bioinformatics and Computational Biology",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_hasin_abrar"
+  },
+  {
+    "id": "fac-039",
+    "name": "Ms. Mohsena Ashraf",
+    "designation": "Lecturer Grade-I",
+    "email": "mohsena_ria.cse@aust.edu",
+    "research_interests": [
+      "Digital Image Processing",
+      "Deep Learning",
+      "Machine Learning",
+      "Natural Language Processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_mohsena_ashraf"
+  },
+  {
+    "id": "fac-040",
+    "name": "Mr. Al Hasib Mahamud",
+    "designation": "Lecturer Grade-I",
+    "email": "hasib.cse@aust.edu",
+    "research_interests": [
+      "Digital Image Processing",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_al_hasib_mahamud"
+  },
+  {
+    "id": "fac-041",
+    "name": "Ms. Nawshin Tabassum Tanny",
+    "designation": "Lecturer Grade-I",
+    "email": "tanny.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Bioinformatics",
+      "Natural Language Processing",
+      "mHealth"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_nawshin_tabassum_tanny"
+  },
+  {
+    "id": "fac-042",
+    "name": "Ms. Zarin Tasnim Shejuti",
+    "designation": "Lecturer Grade-I",
+    "email": "zarin.cse@aust.edu",
+    "research_interests": [
+      "Digital Image Processing",
+      "Machine Learning",
+      "Natural Language Processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_zarin_tasnim_shejuti"
+  },
+  {
+    "id": "fac-043",
+    "name": "Mr. Mohammad Marufur Rahman",
+    "designation": "Lecturer Grade-I",
+    "email": "maruf.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Medical Image Processing",
+      "Internet of Things (IoT)"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_mohammad_marufur_rahman"
+  },
+  {
+    "id": "fac-044",
+    "name": "Mr. Farzad Ahmed",
+    "designation": "Lecturer Grade-II",
+    "email": "farzad.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Computer Vision",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_farzad_ahmed"
+  },
+  {
+    "id": "fac-045",
+    "name": "Mr. Md. Tanvir Rouf Shawon",
+    "designation": "Lecturer Grade-I",
+    "email": "shawontanvir.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Health Informatics",
+      "Large Language Model",
+      "Machine Learning",
+      "Computer Vision"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_tanvir_rouf_shawon"
+  },
+  {
+    "id": "fac-046",
+    "name": "Ms. Tanjila Broti",
+    "designation": "Lecturer Grade-I",
+    "email": "broti.cse@aust.edu",
+    "research_interests": [
+      "Computer Vision",
+      "Machine Learning",
+      "Artificial Intelligence",
+      "Human-computer Interaction",
+      "Digital Image Processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_tanjila_broti"
+  },
+  {
+    "id": "fac-047",
+    "name": "Mr. Md. Reasad Zaman Chowdhury",
+    "designation": "Lecturer Grade-I",
+    "email": "reasad.cse@aust.edu",
+    "research_interests": [
+      "Computer Vision",
+      "Deep Learning",
+      "Internet of Things"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_reasad_zaman_chowdhury"
+  },
+  {
+    "id": "fac-048",
+    "name": "Mr. Sajib Kumar Saha Joy",
+    "designation": "Lecturer Grade-I",
+    "email": "joy.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Computer Vision",
+      "Deep Learning",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_sajib_kumar_saha_joy"
+  },
+  {
+    "id": "fac-049",
+    "name": "Mr. Ashek Seum",
+    "designation": "Lecturer Grade-I",
+    "email": "seum.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Deep Learning",
+      "Software Engineering",
+      "Computer Vision"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_ashek_seum"
+  },
+  {
+    "id": "fac-050",
+    "name": "Ms. Ashna Nawar Ahmed",
+    "designation": "Lecturer Grade-I",
+    "email": "ashna.cse@aust.edu",
+    "research_interests": [
+      "Evolutionary Algorithm",
+      "Neural Network",
+      "Machine Learning",
+      "Multi-Objective Optimization"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_ashna_nawar_ahmed"
+  },
+  {
+    "id": "fac-051",
+    "name": "Mr. Raihan Tanvir",
+    "designation": "Lecturer Grade-I",
+    "email": "raihantanvir.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Computer Vision",
+      "Large Language Model",
+      "Large Vision-Language Model",
+      "Explainable AI"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_raihan_tanvir"
+  },
+  {
+    "id": "fac-052",
+    "name": "Ms. Sumaiya Nuha Mustafina",
+    "designation": "Lecturer Grade-I",
+    "email": "mustafina.cse@aust.edu",
+    "research_interests": [
+      "Human Computer Interaction",
+      "Machine Learning",
+      "Deep Learning",
+      "Bioinformatics"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_sumaiya_nuha_mustafina"
+  },
+  {
+    "id": "fac-053",
+    "name": "Ms. Anika Bintee Aftab",
+    "designation": "Lecturer Grade-I",
+    "email": "anikaaftab.cse@aust.edu",
+    "research_interests": [
+      "Machine Learning",
+      "Deep Learning",
+      "Natural Language Processing",
+      "Image Processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_anika_bintee_aftab"
+  },
+  {
+    "id": "fac-054",
+    "name": "Mr. Md. Zahid Hossain",
+    "designation": "Lecturer Grade-I",
+    "email": "zahid.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Computer Vision",
+      "Large language Models (LLMs)",
+      "Vision Language Models (VLMs)"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_zahid_hossain"
+  },
+  {
+    "id": "fac-055",
+    "name": "Ms. Nawrin Tabassum",
+    "designation": "Lecturer Grade-I",
+    "email": "nawrin.cse@aust.edu",
+    "research_interests": [
+      "Federated Learning",
+      "Trustworthy AI/ML",
+      "ML Privacy and Security",
+      "AI in Healthcare"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_nawrin_tabassum"
+  },
+  {
+    "id": "fac-056",
+    "name": "Mr. Md. Rakibul Islam",
+    "designation": "Lecturer Grade-I",
+    "email": "rakib.cse@aust.edu",
+    "research_interests": [
+      "Vision-Language Models",
+      "Natural Language Processing",
+      "Computer Vision",
+      "Deep Learning",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_rakibul_islam"
+  },
+  {
+    "id": "fac-057",
+    "name": "Mr. Mustofa Ahmed",
+    "designation": "Lecturer Grade-I",
+    "email": "mustofa.cse@aust.edu",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_mustofa_ahmed"
+  },
+  {
+    "id": "fac-058",
+    "name": "Ms. Tasnuva Binte Rahman",
+    "designation": "Lecturer Grade-I",
+    "email": "tasnuva.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing",
+      "Deep Learning",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_tasnuva_binte_rahman"
+  },
+  {
+    "id": "fac-059",
+    "name": "Mr. Md Hasan Al Kayem",
+    "designation": "Lecturer Grade-I",
+    "email": "hasanalkayem.cse@aust.edu",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_hasan_al_kayem"
+  },
+  {
+    "id": "fac-060",
+    "name": "Mr. Kazi Toufique Elahi",
+    "designation": "Lecturer Grade-II",
+    "email": "ktoufiquee.cse@aust.edu",
+    "research_interests": [
+      "Natural Language Processing"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_kazi_toufique_elahi"
+  },
+  {
+    "id": "fac-061",
+    "name": "Mr. Md. Sohidul Islam",
+    "designation": "Lecturer Grade-II",
+    "email": "sohidul.cse@aust.edu",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/mr_md_sohidul_islam"
+  },
+  {
+    "id": "fac-062",
+    "name": "Ms. Jalisha Jashim Era",
+    "designation": "Lecturer Grade-II",
+    "email": "era.cse@aust.edu",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_jalisha_jashim_era"
+  },
+  {
+    "id": "fac-063",
+    "name": "Ms. Tahsina Muthaki",
+    "designation": "Lecturer Grade-II",
+    "email": "tahsina.cse@aust.edu",
+    "research_interests": [
+      "Computer Vision",
+      "Deep Learning",
+      "Machine Learning"
+    ],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_tahsina_muthaki"
+  },
+  {
+    "id": "fac-064",
+    "name": "Ms. Nabila Rahman",
+    "designation": "Lecturer Grade-II",
+    "email": "nabila.cse@aust.edu",
+    "research_interests": [],
+    "profile_url": "https://www.aust.edu/cse/faculty_member/ms_nabila_rahman"
+  }
+]
