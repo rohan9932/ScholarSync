@@ -181,10 +181,11 @@ export const applicationController = {
               allInterests: app.faculty.researchInterests,
             },
             mentees: [],
+            students: [],
           });
         }
 
-        groupedMap.get(primaryTopic).mentees.push({
+        const studentRecord = {
           id: app.id,
           studentName: app.studentName,
           studentEmail: app.studentEmail,
@@ -193,7 +194,10 @@ export const applicationController = {
           matchScore: app.matchScore,
           matchSummary: app.matchSummary,
           acceptedAt: app.createdAt,
-        });
+        };
+
+        groupedMap.get(primaryTopic).mentees.push(studentRecord);
+        groupedMap.get(primaryTopic).students.push(studentRecord);
       }
 
       const result = Array.from(groupedMap.values());

@@ -57,7 +57,7 @@ export default function ApplicantList({ applications = [], onDecide }) {
             </div>
 
             {/* Actions */}
-            {app.status === 'PENDING' && (
+            {app.status === 'PENDING' ? (
               <div className="flex items-center gap-2 self-end sm:self-auto">
                 <button
                   onClick={() => onDecide?.(app.id, 'ACCEPTED')}
@@ -73,6 +73,20 @@ export default function ApplicantList({ applications = [], onDecide }) {
                   <X className="w-3.5 h-3.5" />
                   <span>Decline</span>
                 </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 self-end sm:self-auto">
+                {app.status === 'ACCEPTED' ? (
+                  <span className="text-xs font-semibold text-accent-400 bg-accent-500/10 border border-accent-500/20 px-3 py-1 rounded-lg flex items-center gap-1.5">
+                    <Check className="w-3.5 h-3.5" />
+                    <span>Mentorship Active</span>
+                  </span>
+                ) : (
+                  <span className="text-xs font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 px-3 py-1 rounded-lg flex items-center gap-1.5">
+                    <X className="w-3.5 h-3.5" />
+                    <span>Declined</span>
+                  </span>
+                )}
               </div>
             )}
           </div>
